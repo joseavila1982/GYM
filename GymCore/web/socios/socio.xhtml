@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+
+</h:head>
+<h:body>
+    
+    
+    <h:form>
+        <p:growl id="messages" />
+        <p:menubar>
+            <p:submenu label="Inicio" icon="ui-icon-document">
+                <p:submenu label="Socio" icon="ui-icon-contact">
+                    <p:menuitem value="Socio" url="/socios/socio.xhtml" />
+                    <p:menuitem value="Foto"  url="/socios/photo.xhtml" />
+                </p:submenu>
+                <p:separator />
+                <p:menuitem value="Regresar" url="../" />
+            </p:submenu>
+            <p:menuitem value="Principal" url="../" icon="ui-icon-close" />
+        </p:menubar>
+    </h:form>
+    
+    <h:form id="formFoto">        
+        <h:panelGrid columns="3" cellpadding="5">
+            <p:photoCam widgetVar="pc" listener="#{photoCamBean.oncapture}" update="photo" />
+            <p:commandButton type="button" value="Capture" onclick="PF('pc').capture()"/>
+            <p:outputPanel id="photo">
+                <p:graphicImage name="demo/images/photocam/#{photoCamBean.filename}.jpeg" rendered="#{not empty photoCamView.filename}"/>
+            </p:outputPanel>
+        </h:panelGrid>
+    </h:form>
+    
+    
+<p:fieldset legend="Socios" style="margin-bottom:20px">
+ <p:growl id="msgs" showDetail="true" />
+		
+  <h:form id="form1">
+      <h3 style="color: blue;"><b>Registro Socio</b></h3>
+	 <h:panelGrid id="panel" columns="4" cellpadding="5">
+
+             <h:column></h:column>
+             <h:column>
+                 <h1>Foto</h1>
+                 <p:graphicImage value="/imagen/foto.png" width=""/>
+
+             </h:column>
+             <h:column></h:column>
+             <h:column></h:column>
+                
+                  
+		<h:column>
+			<p:outputLabel value="Cedula: " />
+		</h:column>
+		<h:column>
+                    <p:inputText id="cedula" value="#{socioBean.cedula}" required="true" requiredMessage="Debe introducir un valor en el campo Cedula" />
+		</h:column>
+		<h:column>
+			<p:outputLabel value="Nombres: " />
+		</h:column>
+		<h:column>
+                    <p:inputText id="nombres" value="#{socioBean.nombres}" required="true" requiredMessage="Debe introducir un valor en el campo Nombres" /> 
+		</h:column>
+		
+	        <h:column>
+			<p:outputLabel value="Email: " />
+		</h:column>
+		<h:column>
+                    <p:inputText id="correo" value="#{socioBean.email}" required="true" requiredMessage="Debe introducir un valor en el campo Email" 
+			             validatorMessage="Formato de correo inválido" >
+			
+			 <f:validateRegex
+			pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			</p:inputText>
+		</h:column>
+		<h:column>
+			<p:outputLabel value="Direccion " />
+		</h:column>
+		<h:column>
+                    <p:inputText id="direccion" value="#{socioBean.direccion}" required="true" requiredMessage="Debe introducir un valor en el campo Direccion" /> 
+		</h:column>
+                
+		<h:column>
+			<p:outputLabel value="Ciudad: " />
+		</h:column>
+		<h:column>
+                    <p:inputText id="ciudad" value="#{socioBean.ciudad}" required="true" requiredMessage="Debe introducir un valor en el campo Ciudad" /> 
+		</h:column>
+		<h:column></h:column>
+                <h:column></h:column>
+                
+                <h:column>
+                    <p:outputLabel value="Telefono: " />
+                </h:column>
+                <h:column>
+                    <p:inputText id="telefono" value="#{socioBean.telefono}" required="true" requiredMessage="Debe introducir un valor en el campo telefono" /> 
+                </h:column>                
+                <h:column>
+                    <p:outputLabel value="Celular: " />
+                </h:column>
+                <h:column>
+                    <p:inputText id="celular" value="#{socioBean.celular}" required="true" requiredMessage="Debe introducir un valor en el campo celular" /> 
+                </h:column>
+
+                <h:column>
+                    <p:outputLabel for="sexo" value="Sexo: " />
+                </h:column>
+                <h:column>
+                    <p:selectOneMenu id="sexo" value="#{socioBean.sexo}" style="width:125px">
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                    </p:selectOneMenu>
+                </h:column>
+
+                <h:column>
+                    <p:outputLabel value="Fecha Nacimiento:" />
+                </h:column>
+                <h:column>
+                    <p:calendar id="fecnacimiento" value="#{socioBean.fecnacimiento}" pattern="dd/MM/yyyy" showOn="button" 
+                                required="true" requiredMessage="Debe seleccionar un valor en el campo Fecha Nacimiento" />
+                </h:column>
+                
+                
+                <h:column>
+                    <p:outputLabel value="Fecha Inicio:" />
+                </h:column>
+                <h:column>
+                    <p:calendar id="fecInicio" value="#{socioBean.fechainicio}" pattern="dd/MM/yyyy" showOn="button" 
+                                required="true" requiredMessage="Debe seleccionar un valor en el campo Fecha Inicio" />
+                </h:column>
+
+                <h:column>        
+                    <p:outputLabel value="Fecha Final:" />
+                </h:column>
+                <h:column>
+                    <p:calendar id="fecFinal" value="#{socioBean.fechafinal}" pattern="dd/MM/yyyy" showOn="button"
+                                required="true" requiredMessage="Debe seleccionar un valor en el campo Fecha Final"/>
+                </h:column>
+
+                <h:column>
+                    <p:outputLabel value="Profesion: " />
+                </h:column>
+                <h:column>
+                    <p:inputText id="profesion" value="#{socioBean.profesion}" required="true" requiredMessage="Debe introducir un valor en el campo Profesion" /> 
+                </h:column>
+                <h:column></h:column>
+                <h:column></h:column>
+
+		<h:column>
+			<p:outputLabel value="Observaciones:" />
+		</h:column>
+		<h:column>
+                    <p:inputTextarea rows="5" cols="40" autoResize="false" value="#{socioBean.observaciones}" />
+		</h:column>
+		<h:column></h:column>
+                <h:column></h:column>
+		
+	   
+                <h:column>
+                    <p:commandButton value="Guardar" update="panel" actionListener="#{socioBean.guardarSocio()}"  />
+                    <p:commandButton value="Limpiar" update="panel" process="@this"
+                                     style="margin-right:20px;" />
+                </h:column>
+                <h:column></h:column>
+                <h:column></h:column>
+                <h:column></h:column>
+
+	   <h:column></h:column>
+	   <h:column></h:column>
+	   <h:column>
+			<p:messages id="msgs" />
+	   </h:column>
+           <h:column></h:column>
+     
+         </h:panelGrid>	
+  </h:form>
+  
+  
+
+</p:fieldset>
+
+</h:body>
+</html>

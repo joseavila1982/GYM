@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+</h:head>
+<h:body>
+
+<p:fieldset legend="Formulario con Tablas" style="margin-bottom:20px">
+ <p:growl id="msgs" showDetail="true" />
+		
+  <h:form id="form1">
+	 <h:panelGrid id="panel" columns="4" cellpadding="5">
+
+		<h:column>
+			<p:outputLabel value="Cedula: " />
+		</h:column>
+		<h:column>
+			<p:inputText id="cedula" value="#{principalBean.nit}" required="true" requiredMessage="Debe introducir un valor en el campo Nit" />
+		</h:column>
+		<h:column></h:column>
+
+		<h:column>
+			<p:outputLabel value="Nombres: " />
+		</h:column>
+		<h:column>
+			<p:inputText id="nombres" value="#{principalBean.usuarioRed}" required="true" requiredMessage="Debe introducir un valor en el campo Usuario Red" /> 
+			<b style="color:red">* Usuario de Red: Campo Requerido </b>
+		</h:column>
+		<h:column></h:column>
+		
+	    <h:column>
+			<p:outputLabel value="Email: " />
+		</h:column>
+		<h:column>
+			<p:inputText id="email" value="#{principalBean.email}" required="true" requiredMessage="Debe introducir un valor en el campo Email" 
+			             validatorMessage="Formato de correo inválido" >
+			
+			 <f:validateRegex
+			pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+			</p:inputText>
+		</h:column>
+		<h:column></h:column>
+				
+	    <h:column>
+			<p:outputLabel for="zona" value="Región: " />
+		</h:column>
+		<h:column>
+        <p:selectOneMenu id="zona" value="#{principalBean.region}" style="width:125px">
+            <f:selectItem itemLabel="Central Z1" itemValue="Z1" />
+            <f:selectItem itemLabel="Central Z2" itemValue="Z2" />
+            <f:selectItem itemLabel="Central Z3" itemValue="Z3" />
+            <f:selectItem itemLabel="Central Z4" itemValue="Z4" />
+        </p:selectOneMenu>
+		</h:column>
+		<h:column></h:column>
+
+		<h:column>
+			<p:outputLabel value="Comentarios:" />
+		</h:column>
+		<h:column>
+			<p:inputTextarea rows="5" cols="40" autoResize="false" value="#{principalBean.comentarios}" />
+		</h:column>
+		<h:column></h:column>
+		
+	 	<h:column>
+		 <h:outputText value="Opcion: " />            
+		</h:column>
+		<h:column>
+			<p:selectOneRadio id="opcion" value="#{principalBean.opcion}" required="true" requiredMessage="Debe seleccionar un valor en el campo Opcion">
+				<f:selectItem itemLabel="Opcion 1" itemValue="1" />
+				<f:selectItem itemLabel="Opcion 2" itemValue="2" />
+				<f:selectItem itemLabel="Opcion 3" itemValue="3" />
+				<f:selectItem itemLabel="Opcion 4" itemValue="4" />
+				<f:selectItem itemLabel="Opcion 5" itemValue="5" />
+			</p:selectOneRadio>
+		</h:column>
+		<h:column></h:column>
+	   
+	   <h:column>
+	    <p:outputLabel value="Fecha Ingreso:" />
+        <p:calendar id="fecIngreso" value="#{principalBean.fechaIngreso}" pattern="dd/MM/yyyy" showOn="button" 
+                    required="true" requiredMessage="Debe seleccionar un valor en el campo Fecha Ingreso" />
+        <br></br>
+        <br></br>
+
+	   </h:column>
+	   <h:column>        
+	    <p:outputLabel value="Fecha Egreso:" />
+        <p:calendar id="fecEgreso" value="#{principalBean.fechaEgreso}" pattern="dd/MM/yyyy" showOn="button"
+                    required="true" requiredMessage="Debe seleccionar un valor en el campo Fecha Egreso"/>
+        </h:column>
+	   <h:column></h:column>
+	   
+	   <h:column>
+	   <p:commandButton value="Aceptar" update="panel" actionListener="#{principalBean.save}" />
+       <p:commandButton value="Limpiar" update="panel" process="@this"
+			actionListener="#{principalBean.resetFail}" style="margin-right:20px;" />
+       </h:column>
+	   <h:column></h:column>
+	   <h:column></h:column>
+
+	   <h:column></h:column>
+	   <h:column></h:column>
+	   <h:column>
+			<p:messages id="msgs" />
+	   </h:column>
+
+
+			</h:panelGrid>	
+  </h:form>
+  
+  
+  <h:form id="formDT">
+    <p:dataTable id="tbl" var="car" value="#{dtTableBean.cars}"
+                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                 paginator="true" rows="10" style="margin-bottom:20px">
+ 
+        <f:facet name="{Exporters}">
+            <h:commandLink>
+                <p:graphicImage value="/imagen/excel.png" width="24"/>
+                <p:dataExporter type="xls" target="tbl" fileName="cars" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage  value="/imagen/pdf.png" width="24"/>
+                <p:dataExporter type="pdf" target="tbl" fileName="cars"/>
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage value="/imagen/csv.png" width="24"/>
+                <p:dataExporter type="csv" target="tbl" fileName="cars" />
+            </h:commandLink>
+ 
+            <h:commandLink>
+                <p:graphicImage value="/imagen/xml.png" width="24"/>
+                <p:dataExporter type="xls" postProcessor="#{principalBean.postProcessXLS}"
+                    target="tbl" fileName="cars" />
+            </h:commandLink>
+        </f:facet>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Id" />
+            </f:facet>
+            <h:outputText value="#{car.id}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="año"/>
+            </f:facet>
+            <h:outputText value="#{car.ano}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Marca" />
+            </f:facet>
+            <h:outputText value="#{car.marca}" />
+        </p:column>
+ 
+        <p:column>
+            <f:facet name="header">
+                <h:outputText value="Color" />
+            </f:facet>
+            <h:outputText value="#{car.color}" />
+        </p:column>
+    </p:dataTable>
+     <h:commandLink id="excel">
+        <p:graphicImage value="/imagen/excel.png" />
+        <p:dataExporter type="xls" target="tbl" fileName="cars" />
+    </h:commandLink>
+ 
+    <h:commandLink id="pdf">
+        <p:graphicImage value="/imagen/pdf.png" />
+        <p:dataExporter type="pdf" target="tbl" fileName="cars" />
+    </h:commandLink>
+ 
+    <h:commandLink id="csv">
+        <p:graphicImage value="/imagen/csv.png" />
+        <p:dataExporter type="csv" target="tbl" fileName="cars" />
+    </h:commandLink>
+ 
+    <h:commandLink id="xml">
+        <p:graphicImage value="/imagen/xml.png" />
+        <p:dataExporter type="xls" postProcessor="#{principalBean.postProcessXLS}"
+              target="tbl" fileName="cars" />
+    </h:commandLink>
+        
+</h:form>	  
+
+</p:fieldset>
+
+</h:body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view contentType="text/html">
+
+	<h:head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Prueba PhotoCam</title>
+		<style type="text/css">
+			table td {
+				vertical-align: top;
+			}
+		</style>
+	</h:head>
+
+	<h:body>
+		<h:form>
+			<p:panel header="Introduce los datos de tu mascota">
+				<h:panelGrid columns="2">
+					<h:outputLabel for="nombre" value="Nombre" />
+					<p:inputText id="nombre" value="#{photoCamBean.nombre}" />
+					<h:outputLabel for="edad" value="Edad" />
+					<p:inputText id="edad" value="#{photoCamBean.edad}" />
+					<h:outputLabel for="fotoLink" value="Foto" />
+					<p:commandLink id="fotoLink" onclick="fotoDialog.show()">
+						<p:graphicImage value="#{pageContext.contextPath}/img/webcam.png"
+							rendered="#{! photoCamBean.verFoto}" />
+						<p:graphicImage rendered="#{photoCamBean.verFoto}"
+							value="#{pageContext.contextPath}/photocam/#{photoCamBean.foto}"
+							cache="false" />
+					</p:commandLink>
+				</h:panelGrid>
+				<p:commandButton action="#{photoCamBean.guardarDatos}"
+					value="Guardar" />
+			</p:panel>
+			<p:dialog header="Haz una foto" widgetVar="fotoDialog" modal="true"
+				 width="400" visible="false" resizable="false">
+				<p:photoCam widgetVar="pc" listener="#{photoCamBean.oncapture}"
+					update="fotoLink" />
+				<br />
+				<p:commandButton type="button" value="Hacer foto"
+					onclick="pc.capture()">
+					<p:ajax oncomplete="fotoDialog.hide();" />
+				</p:commandButton>
+			</p:dialog>
+
+		</h:form>
+	</h:body>
+</f:view>
+</html>

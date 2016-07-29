@@ -1,0 +1,32 @@
+/* 
+    Document   : estilos
+    Created on : 24/06/2016, 10:27:51 PM
+    Author     : JOSE AVILA
+    Description:
+        Archivo que contiene el codigo para agregar imagenes a los botones 
+        en primefaces
+*/
+
+.ui-state-default .icon-add{
+    background-image: url(../img/add-user.png);
+}
+
+.ui-state-default .icon-edit{
+    background-image:url(../imagen/edit.png);
+}
+ 
+.ui-state-default .icon-delete{
+    background-image:url(../imagen/eliminar.png);
+}
+
+.ui-state-default .icon-save{
+    background-image:url(../img/guardar.png);
+}
+
+.ui-state-default .icon-cancel{
+    background-image:url(../img/error.gif);
+}
+
+.ui-state-default .icon-load{
+    background-image:url(../img/ajaxloadingbar.gif);
+}

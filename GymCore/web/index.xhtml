@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+
+    <h:form>
+        <p:growl id="messages" />
+        <p:menubar>
+            <p:submenu label="Inicio" icon="ui-icon-document">
+                <p:submenu label="Socio" icon="ui-icon-contact">
+                    <p:menuitem value="Socio" url="/socios/socio.xhtml" />
+                    <p:menuitem value="Foto"  url="/socios/photo.xhtml" />
+                </p:submenu>
+                <p:separator />
+                <p:menuitem value="Regresar" url="../" />
+            </p:submenu>
+            <p:menuitem value="Principal" url="../" icon="ui-icon-close" />
+        </p:menubar>
+    </h:form>
+        
+
+  	<div id="loading">
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+
+		<p:dialog widgetVar="statusDialog" modal="true"
+			header="Espera por favor..." draggable="false" closable="false"
+			resizable="false">
+			<p:graphicImage value="/imagen/ajax-loader.gif" />
+		</p:dialog>
+	</div>
+        
+        <br /><br />
+        <p:fieldset style="margin-bottom:20px; width: 340px">
+            <p:growl id="msgs" showDetail="true" />
+
+            <h:form id="form1">
+                <h3 style="color: blue;"><b>Login</b></h3>
+                <h:panelGrid id="panel" columns="2" cellpadding="5">
+
+                    <h:column>
+                        <p:outputLabel value="Usuario: " />
+                    </h:column>
+                    <h:column>
+                        <p:inputText id="usuario" value="#{loginBean.usuario}" required="true" requiredMessage="Debe introducir un valor en el campo Usuario" />
+                    </h:column>
+
+                    <h:column>
+                        <p:outputLabel value="Contraseña: " />
+                    </h:column>
+                    <h:column>
+                        <p:inputText id="password" value="#{loginBean.password}" required="true" requiredMessage="Debe introducir un valor en el campo Contraseña" /> 
+                    </h:column>
+
+                    <h:column>
+                        <p:commandButton value="Aceptar" update="panel" actionListener="#{loginBean.login(event)}" />
+                        <p:commandButton value="Limpiar" update="panel" process="@this"
+                                         actionListener="#{principalBean.resetFail}" style="margin-right:20px;" />
+                    </h:column>
+                    <h:column></h:column>
+                    <h:column>
+                        <p:messages id="msgs" />
+                    </h:column>
+
+
+                </h:panelGrid>	
+            </h:form>
+
+
+        </p:fieldset>
+                
+    </h:body>
+</html>
+
